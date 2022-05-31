@@ -2,4 +2,3 @@ mtcnn
 tensorflow
 matplotlib
 streamlit
-io
