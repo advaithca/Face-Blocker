@@ -1,2 +1,2 @@
-# Image-Blurrer
- Blurs faces from images
+# Face-Blocker
+Literally blocks faces in images, Literally.
