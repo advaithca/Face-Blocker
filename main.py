@@ -5,8 +5,8 @@ from matplotlib.patches import Rectangle
 import io
 
 st.write("""
-# Face Eraser
-##### Detects and erases faces from your image
+# Face Blocker
+##### Detects and blocks faces from your image
 ***
 """)
 
