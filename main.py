@@ -2,7 +2,7 @@ import streamlit as st
 from matplotlib import pyplot as plt
 from mtcnn.mtcnn import MTCNN
 from matplotlib.patches import Rectangle
-import os
+import io
 
 st.write("""
 # Face Eraser
@@ -12,26 +12,26 @@ st.write("""
 
 image = st.file_uploader("Upload the image file",type=['png','jpg','jpeg'],accept_multiple_files=False)
 if image:
+    fig = plt.figure()
     data =  plt.imread(image)
     detector = MTCNN()
     result_list = detector.detect_faces(data)
+    plt.axis('off')
     plt.imshow(data)
     ax = plt.gca()
     for result in result_list:
         x, y, width, height = result['box']
         rect = Rectangle((x, y), width, height, fill=True, color='white')
         ax.add_patch(rect)
-   
+    st.pyplot(fig)
     name = st.text_input("Name of output file: ")
     if name:
-        plt.savefig(f'{name}.jpg',dpi=90,bbox_inches='tight')
-        image2 = plt.imread(f'{name}.jpg')
+        img = io.BytesIO()
+        plt.savefig(img, format='jpg')
 
-        st.image(image2)
-        with open(f'{name}.jpg', "rb") as file:
-            btn = st.download_button(
-                    label="Download image",
-                    data=file,
-                    file_name=f'{name}.jpg',
-                    mime="image/png"
-                )
+        btn = st.download_button(
+            label="Download image",
+            data=img,
+            file_name=f'{name}.jpg',
+            mime="image/jpg"
+        )
