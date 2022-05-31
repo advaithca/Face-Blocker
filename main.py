@@ -10,7 +10,7 @@ st.write("""
 ***
 """)
 
-image = st.file_uploader("Upload the image file",type=['png','jpg','jpeg'],accept_multiple_files=False)
+image = st.file_uploader("Upload the image file",type=['jpg','jpeg'],accept_multiple_files=False)
 if image:
     fig = plt.figure()
     data =  plt.imread(image)
@@ -27,7 +27,8 @@ if image:
     name = st.text_input("Name of output file: ")
     if name:
         img = io.BytesIO()
-        plt.savefig(img, format='jpg')
+        extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+        plt.savefig(img, format='jpg',bbox_inches=extent)
 
         btn = st.download_button(
             label="Download image",
