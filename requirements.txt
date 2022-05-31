@@ -1,4 +1,4 @@
 mtcnn
 tensorflow
 matplotlib
-streamlit
+streamlit==1.9.2
